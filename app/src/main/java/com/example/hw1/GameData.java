@@ -1,6 +1,7 @@
 package com.example.hw1;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.view.View;
@@ -39,6 +40,7 @@ public class GameData {
 
     private void moveCroc(ShapeableImageView crocs[][], ShapeableImageView frogs[],
                           ShapeableImageView hearts[], Context con) {
+       MediaPlayer mp = MediaPlayer.create(con, R.raw.wilhelm_scream);
         if ((crocs[GameActivity.getFrogPos()][4].getVisibility() == View.VISIBLE) &&
                 (crocs[GameActivity.getFrogPos()][4].getVisibility() == frogs[GameActivity.getFrogPos()].getVisibility())) {
             if (life > 0) { // last run will be 1->0 so cant be >=
@@ -46,6 +48,7 @@ public class GameData {
                 //vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 life--;
                 hearts[life].setVisibility(View.INVISIBLE);
+                mp.start();
                 Toast.makeText(con, "Opsi popsi", Toast.LENGTH_SHORT).show();
             }
         }

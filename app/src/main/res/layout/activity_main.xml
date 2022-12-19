@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameActivity"
-    android:background="@drawable/swamp">
+    android:background="@drawable/swamp"
+    tools:context=".GameActivity">
 
 
     <!-- Hearts -->
@@ -13,18 +13,18 @@
         android:id="@+id/game_LO_hearts"
         android:layout_width="150dp"
         android:layout_height="30dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp">
 
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/game_heart1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             app:srcCompat="@drawable/frog_heart">
 
         </com.google.android.material.imageview.ShapeableImageView>
@@ -33,8 +33,8 @@
             android:id="@+id/game_heart2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             app:srcCompat="@drawable/frog_heart">
 
         </com.google.android.material.imageview.ShapeableImageView>
@@ -43,8 +43,8 @@
             android:id="@+id/game_heart3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             app:srcCompat="@drawable/frog_heart">
 
         </com.google.android.material.imageview.ShapeableImageView>
@@ -89,344 +89,347 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/game_LO_hearts"
         android:layout_above="@id/game_LO_arrows"
-        >
+        android:layout_below="@id/game_LO_hearts"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/game_LO_lane1"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_10"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:elevation="20dp"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_20"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_30"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_40"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_50"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_frog_60"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
-                app:srcCompat="@drawable/frog"
-                >
+                app:srcCompat="@drawable/frog">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/game_LO_lane2"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_11"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_21"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_31"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_41"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_51"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_frog_61"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
-                app:srcCompat="@drawable/frog"
-                >
+                app:srcCompat="@drawable/frog">
 
             </com.google.android.material.imageview.ShapeableImageView>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/game_LO_lane3"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_12"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_22"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_32"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_42"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_52"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_frog_62"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/frog"
-                >
+                app:srcCompat="@drawable/frog">
 
             </com.google.android.material.imageview.ShapeableImageView>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/game_LO_lane4"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_13"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_23"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_33"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_43"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_53"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_frog_63"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
-                app:srcCompat="@drawable/frog"
-                >
+                app:srcCompat="@drawable/frog">
 
             </com.google.android.material.imageview.ShapeableImageView>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/game_LO_lane5"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_14"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_24"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_34"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_44"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_croc_54"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:visibility="invisible"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/crocodile"
-                >
+                android:visibility="invisible"
+                app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/game_frog_64"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
-                app:srcCompat="@drawable/frog"
-                >
+                app:srcCompat="@drawable/frog">
 
             </com.google.android.material.imageview.ShapeableImageView>
         </LinearLayout>
