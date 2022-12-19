@@ -141,7 +141,17 @@
 
             </com.google.android.material.imageview.ShapeableImageView>
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_frog_50"
+                android:id="@+id/game_croc_50"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/crocodile"
+                >
+
+            </com.google.android.material.imageview.ShapeableImageView>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/game_frog_60"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
@@ -198,10 +208,21 @@
 
             </com.google.android.material.imageview.ShapeableImageView>
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_frog_51"
+                android:id="@+id/game_croc_51"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/crocodile"
+                >
+
+            </com.google.android.material.imageview.ShapeableImageView>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/game_frog_61"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/frog"
                 >
 
@@ -254,18 +275,27 @@
 
             </com.google.android.material.imageview.ShapeableImageView>
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_frog_52"
+                android:id="@+id/game_croc_52"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/crocodile"
+                >
+
+            </com.google.android.material.imageview.ShapeableImageView>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/game_frog_62"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                android:visibility="invisible"
                 app:srcCompat="@drawable/frog"
                 >
 
             </com.google.android.material.imageview.ShapeableImageView>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/game_LO_lane3"
+            android:id="@+id/game_LO_lane4"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -312,7 +342,17 @@
 
             </com.google.android.material.imageview.ShapeableImageView>
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_frog_53"
+                android:id="@+id/game_croc_53"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/crocodile"
+                >
+
+            </com.google.android.material.imageview.ShapeableImageView>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/game_frog_63"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
@@ -323,14 +363,14 @@
             </com.google.android.material.imageview.ShapeableImageView>
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/game_LO_lane4"
+            android:id="@+id/game_LO_lane5"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_croc_15"
+                android:id="@+id/game_croc_14"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:visibility="invisible"
@@ -340,7 +380,7 @@
 
             </com.google.android.material.imageview.ShapeableImageView>
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_croc_25"
+                android:id="@+id/game_croc_24"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:visibility="invisible"
@@ -350,7 +390,7 @@
 
             </com.google.android.material.imageview.ShapeableImageView>
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_croc_35"
+                android:id="@+id/game_croc_34"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:visibility="invisible"
@@ -360,7 +400,7 @@
 
             </com.google.android.material.imageview.ShapeableImageView>
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_croc_45"
+                android:id="@+id/game_croc_44"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:visibility="invisible"
@@ -370,7 +410,17 @@
 
             </com.google.android.material.imageview.ShapeableImageView>
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/game_frog_55"
+                android:id="@+id/game_croc_54"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:visibility="invisible"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/crocodile"
+                >
+
+            </com.google.android.material.imageview.ShapeableImageView>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/game_frog_64"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
