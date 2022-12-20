@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -17,6 +18,7 @@ public class GameActivity extends AppCompatActivity {
     private ShapeableImageView frogs[];
     private ShapeableImageView crocs[][];
     private Vibrator vibrator;
+    private TextView meter;
     private static int frogPos = 2;
 
     GameData gameData;
@@ -38,26 +40,27 @@ public class GameActivity extends AppCompatActivity {
             leftClick();
         });
 
-        gameData.makeCrocBySeconds(crocs, frogs, frogPos);
-        gameData.moveCrocBySeconds(crocs, frogs, hearts, this.getApplicationContext());
+        gameData.makeCrocBySeconds(crocs);
+        gameData.moveCrocBySeconds(crocs, frogs, hearts, this.getApplicationContext(), meter);
     }
 
     public void findViews() {
         rightButton = findViewById(R.id.game_BTN_right);
         leftButton = findViewById(R.id.game_BTN_left);
-        hearts = new ShapeableImageView[]{
+
+        hearts = new ShapeableImageView[] {
                 findViewById(R.id.game_heart1),
                 findViewById(R.id.game_heart2),
                 findViewById(R.id.game_heart3)
         };
-        frogs = new ShapeableImageView[]{
+        frogs = new ShapeableImageView[] {
                 findViewById(R.id.game_frog_60),
                 findViewById(R.id.game_frog_61),
                 findViewById(R.id.game_frog_62),    //added 2 more frog positions
                 findViewById(R.id.game_frog_63),
                 findViewById(R.id.game_frog_64)
         };
-        crocs = new ShapeableImageView[][]{
+        crocs = new ShapeableImageView[][] {
                 {findViewById(R.id.game_croc_10),
                         findViewById(R.id.game_croc_20),
                         findViewById(R.id.game_croc_30),
@@ -83,6 +86,7 @@ public class GameActivity extends AppCompatActivity {
                         findViewById(R.id.game_croc_34),
                         findViewById(R.id.game_croc_44),
                         findViewById(R.id.game_croc_54)}};
+        meter = findViewById(R.id.meter_counter);
     }
 
     public void rightClick() {

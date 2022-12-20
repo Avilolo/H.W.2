@@ -1,15 +1,14 @@
 package com.example.hw1;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.google.android.material.imageview.ShapeableImageView;
-
 import java.util.Random;
 
 
@@ -17,41 +16,45 @@ public class GameData {
 
     private final int SPAWN_DELAY = 3;
     private final int SPEED_DELAY = 1;
-    private Random rand;
-    private Handler handle;
+    private final Random rand;
+    private final Handler handle;
     private Runnable run;
-    private Vibrator vibrator;
+    private final Vibrator vibrator;
+    private int meterCounter;
     private int life;
+
 
     public GameData(int life, Vibrator vibrator) {
         rand = new Random();
         handle = new Handler();
         this.life = life;
         this.vibrator = vibrator;
+        meterCounter = 0;
     }
 
     private void spawnCroc(ShapeableImageView crocs[][]) {
+        int crocsCounter = 0;
+        boolean flyCoin = false;
         for (int i = 0; i < crocs.length; i++) {
-            if (rand.nextBoolean()) {
+            if (rand.nextBoolean() && crocsCounter < 4) {
+                crocs[i][0].setImageResource(R.drawable.crocodile);
+                crocs[i][0].setTag("croc");
                 crocs[i][0].setVisibility(View.VISIBLE);
+                crocsCounter++;
+            }
+            else if ( !flyCoin && rand.nextBoolean()) {    //if rand is false = no croc -> possibility for fly
+                crocs[i][0].setImageResource(R.drawable.fly);
+                crocs[i][0].setTag("fly");
+                crocs[i][0].setVisibility(View.VISIBLE);
+                flyCoin = true;
             }
         }
+
     }
 
     private void moveCroc(ShapeableImageView crocs[][], ShapeableImageView frogs[],
-                          ShapeableImageView hearts[], Context con) {
-       MediaPlayer mp = MediaPlayer.create(con, R.raw.wilhelm_scream);
-        if ((crocs[GameActivity.getFrogPos()][4].getVisibility() == View.VISIBLE) &&
-                (crocs[GameActivity.getFrogPos()][4].getVisibility() == frogs[GameActivity.getFrogPos()].getVisibility())) {
-            if (life > 0) { // last run will be 1->0 so cant be >=
-                vibrator.vibrate(500);
-                //vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-                life--;
-                hearts[life].setVisibility(View.INVISIBLE);
-                mp.start();
-                Toast.makeText(con, "Opsi popsi", Toast.LENGTH_SHORT).show();
-            }
-        }
+                          ShapeableImageView hearts[], Context con, TextView meter) {
+       checkCollision(crocs, frogs, hearts, con, meter);
 
         for (int i = 0; i < crocs.length; i++) {
             for (int j = crocs[0].length - 1; j > 0; j--) {
@@ -60,15 +63,46 @@ public class GameData {
                     crocs[i][j].setVisibility(View.INVISIBLE);
                 }                                                           // at index 0 there's the 1st croc
                 if (crocs[i][j - 1].getVisibility() == View.VISIBLE) {      //moving crocs only from the 2nd row hence this if is safe)
+                    if (crocs[i][j - 1].getTag().equals("fly")) {
+                        crocs[i][j].setImageResource(R.drawable.fly);
+                        crocs[i][j].setTag("fly");
+                    }
+                    else {
+                        crocs[i][j].setImageResource(R.drawable.crocodile);
+                        crocs[i][j].setTag("croc");
+                    }
                     crocs[i][j - 1].setVisibility(View.INVISIBLE);
                     crocs[i][j].setVisibility(View.VISIBLE);
                 }
             }
         }
-
+        meterCounter++;
+        meter.setText(String.valueOf(meterCounter));
     }
 
-    public void makeCrocBySeconds(ShapeableImageView crocs[][], ShapeableImageView frogs[], int frogPos) {
+    private void checkCollision(ShapeableImageView crocs[][], ShapeableImageView frogs[],
+                                   ShapeableImageView hearts[], Context con, TextView meter) {
+        MediaPlayer mp = MediaPlayer.create(con, R.raw.wilhelm_scream);
+        if ((crocs[GameActivity.getFrogPos()][4].getVisibility() == View.VISIBLE) &&
+                (crocs[GameActivity.getFrogPos()][4].getVisibility() == frogs[GameActivity.getFrogPos()].getVisibility())) {
+            if (life > 0 && crocs[GameActivity.getFrogPos()][4].getTag().equals("croc")) { // last run will be 1->0 so cant be >=
+                vibrator.vibrate(500);
+                //vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                life--;
+                if (life == 0) {
+                    //TODO: terminate the code
+                }
+                hearts[life].setVisibility(View.INVISIBLE);
+                mp.start();
+                Toast.makeText(con, "Opsi popsi", Toast.LENGTH_SHORT).show();
+            }
+            if (crocs[GameActivity.getFrogPos()][4].getTag().equals("fly")) {
+                meterCounter += 100;
+            }
+        }
+    }
+
+    public void makeCrocBySeconds(ShapeableImageView crocs[][]) {
         run = new Runnable() {
             @Override
             public void run() {
@@ -80,12 +114,12 @@ public class GameData {
     }
 
     public void moveCrocBySeconds(ShapeableImageView crocs[][], ShapeableImageView frogs[],
-                                  ShapeableImageView hearts[], Context con) {
+                                  ShapeableImageView hearts[], Context con, TextView meter) {
         run = new Runnable() {
             @Override
             public void run() {
                 handle.postDelayed(this, SPEED_DELAY * 1000);
-                moveCroc(crocs, frogs, hearts, con);
+                moveCroc(crocs, frogs, hearts, con, meter);
             }
         };
         handle.postDelayed(run, 1000); // another delay for the first drop after creation

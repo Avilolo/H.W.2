@@ -8,6 +8,7 @@
     tools:context=".GameActivity">
 
 
+
     <!-- Hearts -->
     <LinearLayout
         android:id="@+id/game_LO_hearts"
@@ -51,6 +52,21 @@
 
 
     </LinearLayout>
+    <!-- Meter counter -->
+    <TextView
+        android:id="@+id/meter_counter"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="30dp"
+        android:text="0"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="30dp">
+
+    </TextView>
 
     <!-- Arrow buttons -->
     <LinearLayout
@@ -85,7 +101,7 @@
 
     </LinearLayout>
 
-    <!-- Matrix layout -->
+    <!-- Crocs & frog Matrix layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -104,8 +120,9 @@
                 android:id="@+id/game_croc_10"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:visibility="invisible"
+                android:tag="croc"
                 android:layout_weight="1"
-                android:elevation="20dp"
                 app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -176,6 +193,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
+                android:tag="croc"
                 app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -244,6 +262,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
+                android:tag="croc"
                 app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -311,6 +330,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
+                android:tag="croc"
                 app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
@@ -379,6 +399,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:visibility="invisible"
+                android:tag="croc"
                 app:srcCompat="@drawable/crocodile">
 
             </com.google.android.material.imageview.ShapeableImageView>
