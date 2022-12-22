@@ -1,11 +1,19 @@
 package com.example.hw1;
 
 import android.content.Context;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -14,6 +22,10 @@ public class GameActivity extends AppCompatActivity {
 
     private ExtendedFloatingActionButton rightButton;
     private ExtendedFloatingActionButton leftButton;
+    private Sensor sensor;
+    private SensorManager sensorManager;
+    private SensorEventListener sensorEL;
+    private long timestemp = 0;
     private ShapeableImageView hearts[];
     private ShapeableImageView frogs[];
     private ShapeableImageView crocs[][];
@@ -33,11 +45,32 @@ public class GameActivity extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         gameData = new GameData(hearts.length, vibrator);
 
+        if (getIntent().getExtras().getBoolean("gameType")) { // if its true we need a sensor
+            //    if (sensor != null) {
+            rightButton.setVisibility(View.INVISIBLE);
+            leftButton.setVisibility(View.INVISIBLE);
+            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            sensorManager.registerListener(sensorEL, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+            sensorEL = new SensorEventListener() {
+                @Override
+                public void onSensorChanged(SensorEvent event) {
+                    float x = event.values[0];
+                    moveFrog(x);
+                }
+
+                @Override
+                public void onAccuracyChanged(Sensor sensor, int i) {
+
+                }
+            };
+            //   };
+        }
         rightButton.setOnClickListener(view -> {
-            rightClick();
+            moveFrogRight();
         });
         leftButton.setOnClickListener(view -> {
-            leftClick();
+            moveFrogLeft();
         });
 
         gameData.makeCrocBySeconds(crocs);
@@ -48,19 +81,19 @@ public class GameActivity extends AppCompatActivity {
         rightButton = findViewById(R.id.game_BTN_right);
         leftButton = findViewById(R.id.game_BTN_left);
 
-        hearts = new ShapeableImageView[] {
+        hearts = new ShapeableImageView[]{
                 findViewById(R.id.game_heart1),
                 findViewById(R.id.game_heart2),
                 findViewById(R.id.game_heart3)
         };
-        frogs = new ShapeableImageView[] {
+        frogs = new ShapeableImageView[]{
                 findViewById(R.id.game_frog_60),
                 findViewById(R.id.game_frog_61),
                 findViewById(R.id.game_frog_62),    //added 2 more frog positions
                 findViewById(R.id.game_frog_63),
                 findViewById(R.id.game_frog_64)
         };
-        crocs = new ShapeableImageView[][] {
+        crocs = new ShapeableImageView[][]{
                 {findViewById(R.id.game_croc_10),
                         findViewById(R.id.game_croc_20),
                         findViewById(R.id.game_croc_30),
@@ -89,7 +122,18 @@ public class GameActivity extends AppCompatActivity {
         meter = findViewById(R.id.meter_counter);
     }
 
-    public void rightClick() {
+    public void moveFrog(float x) {
+        if (System.currentTimeMillis() - timestemp > 50) {
+            timestemp = System.currentTimeMillis();
+            if (x > 6.0) {
+                moveFrogRight();
+            } else if (x < -6.0) {
+                moveFrogLeft();
+            }
+        }
+    }
+
+    public void moveFrogRight() {
         if (frogPos != 4) { // now 4 because we have more lanes = longer frog array
             frogs[frogPos].setVisibility(View.INVISIBLE);
             frogPos++;
@@ -97,7 +141,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void leftClick() {
+    public void moveFrogLeft() {
         if (frogPos != 0) {
             frogs[frogPos].setVisibility(View.INVISIBLE);
             frogPos--;
@@ -107,6 +151,18 @@ public class GameActivity extends AppCompatActivity {
 
     public static int getFrogPos() {
         return frogPos;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(sensorEL, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(sensorEL);
     }
 }
 
