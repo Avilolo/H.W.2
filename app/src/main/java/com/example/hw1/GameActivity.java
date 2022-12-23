@@ -1,5 +1,6 @@
 package com.example.hw1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -10,9 +11,13 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -31,7 +36,10 @@ public class GameActivity extends AppCompatActivity {
     private ShapeableImageView crocs[][];
     private Vibrator vibrator;
     private TextView meter;
+    private FragmentManager fragmentManager;
     private static int frogPos = 2;
+
+
 
     GameData gameData;
 
@@ -43,7 +51,9 @@ public class GameActivity extends AppCompatActivity {
 
         findViews();
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        gameData = new GameData(hearts.length, vibrator);
+        fragmentManager = getSupportFragmentManager();
+        gameData = new GameData(hearts.length, vibrator, fragmentManager);
+
 
         if (getIntent().getExtras().getBoolean("gameType")) { // if its true we need a sensor
             //    if (sensor != null) {
@@ -72,7 +82,6 @@ public class GameActivity extends AppCompatActivity {
         leftButton.setOnClickListener(view -> {
             moveFrogLeft();
         });
-
         gameData.makeCrocBySeconds(crocs);
         gameData.moveCrocBySeconds(crocs, frogs, hearts, this.getApplicationContext(), meter);
     }
@@ -120,6 +129,7 @@ public class GameActivity extends AppCompatActivity {
                         findViewById(R.id.game_croc_44),
                         findViewById(R.id.game_croc_54)}};
         meter = findViewById(R.id.meter_counter);
+
     }
 
     public void moveFrog(float x) {
@@ -156,13 +166,17 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(sensorEL, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if (getIntent().getExtras().getBoolean("gameType")) {
+            sensorManager.registerListener(sensorEL, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(sensorEL);
+        if (getIntent().getExtras().getBoolean("gameType")) {
+            sensorManager.unregisterListener(sensorEL);
+        }
     }
 }
 

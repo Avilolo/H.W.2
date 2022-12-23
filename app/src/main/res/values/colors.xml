@@ -6,6 +6,13 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="light_green">#71A92C</color>
+    <color name="gray">#676767</color>
     <color name="white">#FFFFFFFF</color>
     <color name="brownish">#774F13</color>
+    <color name="red">#FF1100</color>
+    <color name="gold">#ffd700</color>
+    <color name="silver">#c0c0c0 </color>
+    <color name="bronze">#967444</color>
+    <color name="light_brown">#AF8C56</color>
 </resources>

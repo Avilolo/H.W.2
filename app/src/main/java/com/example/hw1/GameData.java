@@ -1,13 +1,24 @@
 package com.example.hw1;
 
+import android.app.Activity;
+
+
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
+import androidx.fragment.app.Fragment;
+
+
 import com.google.android.material.imageview.ShapeableImageView;
 import java.util.Random;
 
@@ -22,14 +33,17 @@ public class GameData {
     private final Vibrator vibrator;
     private int meterCounter;
     private int life;
+    private FragmentManager fragmentManager;
+    private TopThreeFragment leaderboard;
 
 
-    public GameData(int life, Vibrator vibrator) {
+    public GameData(int life, Vibrator vibrator, FragmentManager fragmentManager) {
         rand = new Random();
         handle = new Handler();
         this.life = life;
         this.vibrator = vibrator;
         meterCounter = 0;
+        this.fragmentManager = fragmentManager;
     }
 
     private void spawnCroc(ShapeableImageView crocs[][]) {
@@ -87,10 +101,12 @@ public class GameData {
                 (crocs[GameActivity.getFrogPos()][4].getVisibility() == frogs[GameActivity.getFrogPos()].getVisibility())) {
             if (life > 0 && crocs[GameActivity.getFrogPos()][4].getTag().equals("croc")) { // last run will be 1->0 so cant be >=
                 vibrator.vibrate(500);
-                //vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 life--;
-                if (life == 0) {
-                    //TODO: terminate the code
+                if (life == 2) {
+                    handle.removeCallbacks(run);    //stops game from running
+                    inflateLeaderBoardFragment(con);
+              //      leaderboard.submitRecord(meterCounter);
                 }
                 hearts[life].setVisibility(View.INVISIBLE);
                 mp.start();
@@ -118,11 +134,24 @@ public class GameData {
         run = new Runnable() {
             @Override
             public void run() {
-                handle.postDelayed(this, SPEED_DELAY * 1000);
+                handle.postDelayed(this, SPEED_DELAY * 500);
                 moveCroc(crocs, frogs, hearts, con, meter);
             }
         };
         handle.postDelayed(run, 1000); // another delay for the first drop after creation
     }
+
+    public void inflateLeaderBoardFragment(Context con) {
+        Fragment leaderboard = new TopThreeFragment();
+        FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
+        Bundle score = new Bundle();
+        score.putInt("score", meterCounter);
+        leaderboard.setArguments(score);
+        fragTransaction.replace(R.id.leaderboard_frame, leaderboard);
+        fragTransaction.commit();
+
+    }
+
+
 }
 

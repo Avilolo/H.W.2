@@ -103,6 +103,7 @@
 
     <!-- Crocs & frog Matrix layout -->
     <LinearLayout
+        android:id="@+id/matrix"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/game_LO_arrows"
@@ -456,4 +457,21 @@
         </LinearLayout>
 
     </LinearLayout>
+    <!-- Leaderboard -->
+    <FrameLayout
+        android:id="@+id/leaderboard_frame"
+        android:layout_width="match_parent"
+        android:layout_height="325dp"
+        android:layout_above="@+id/map_frame"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/map_frame"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_above="@id/game_LO_arrows">
+
+    </FrameLayout>
 </RelativeLayout>
