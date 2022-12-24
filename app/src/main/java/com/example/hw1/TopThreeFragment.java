@@ -1,15 +1,19 @@
 package com.example.hw1;
 
 import android.os.Bundle;
+
 import com.google.gson.Gson;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -36,12 +40,16 @@ public class TopThreeFragment extends Fragment {
     }
 
     public void findView(View view) {
-        topName[0] = view.findViewById(R.id.first_place);
-        topName[1] = view.findViewById(R.id.second_place);
-        topName[2] = view.findViewById(R.id.third_place);
-        topThreeTV[0] = view.findViewById(R.id.first_TV);
-        topThreeTV[1] = view.findViewById(R.id.second_TV);
-        topThreeTV[2] = view.findViewById(R.id.third_TV);
+        topName = new ExtendedFloatingActionButton[]{
+                view.findViewById(R.id.first_place),
+                view.findViewById(R.id.second_place),
+                view.findViewById(R.id.third_place)
+        };
+        topThreeTV = new TextView[] {
+                view.findViewById(R.id.first_TV),
+                view.findViewById(R.id.second_TV),
+                view.findViewById(R.id.third_TV)
+        };
         nameTI = view.findViewById(R.id.name_TI);
         submitBtn = view.findViewById(R.id.submit_btn);
     }

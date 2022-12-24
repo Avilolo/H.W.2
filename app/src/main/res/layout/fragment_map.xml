@@ -6,12 +6,13 @@
     android:background="@color/purple_500"
     tools:context=".MapFragment">
 
-    <FrameLayout
+    <fragment
+        android:id="@+id/my_map"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
-
-    </FrameLayout>
+        android:layout_centerHorizontal="true"
+        android:name="com.google.android.gms.maps.SupportMapFragment">
+    </fragment>
 
 </RelativeLayout>

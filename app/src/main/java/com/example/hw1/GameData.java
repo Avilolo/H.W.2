@@ -1,8 +1,5 @@
 package com.example.hw1;
 
-import android.app.Activity;
-
-
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
@@ -14,11 +11,7 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import androidx.fragment.app.Fragment;
-
-
 import com.google.android.material.imageview.ShapeableImageView;
 import java.util.Random;
 
@@ -103,10 +96,9 @@ public class GameData {
                 vibrator.vibrate(500);
                 vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 life--;
-                if (life == 2) {
+                if (life == 2) {    //TODO CHANGE BACK TO 0
                     handle.removeCallbacks(run);    //stops game from running
-                    inflateLeaderBoardFragment(con);
-              //      leaderboard.submitRecord(meterCounter);
+                    inflateFragments(con);
                 }
                 hearts[life].setVisibility(View.INVISIBLE);
                 mp.start();
@@ -141,17 +133,15 @@ public class GameData {
         handle.postDelayed(run, 1000); // another delay for the first drop after creation
     }
 
-    public void inflateLeaderBoardFragment(Context con) {
+    public void inflateFragments(Context con) {
         Fragment leaderboard = new TopThreeFragment();
+        Fragment map = new MapFragment();
         FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
         Bundle score = new Bundle();
         score.putInt("score", meterCounter);
         leaderboard.setArguments(score);
-        fragTransaction.replace(R.id.leaderboard_frame, leaderboard);
-        fragTransaction.commit();
-
+        fragTransaction.replace(R.id.map_frame, map).commit();
+        fragTransaction.replace(R.id.leaderboard_frame, leaderboard).commit();
     }
-
-
 }
 
