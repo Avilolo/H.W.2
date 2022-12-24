@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/croc_frog_home_screen">
+
+    <RelativeLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/arrow_btn"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:textAlignment="center"
+            app:backgroundTint="@color/brownish"
+            android:text="Buttons">
+
+        </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/sensor_btn"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            app:backgroundTint="@color/brownish"
+            android:textAlignment="center"
+            android:text="Sensor">
+
+        </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+    </RelativeLayout>
+
+
+</RelativeLayout>
