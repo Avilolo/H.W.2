@@ -25,6 +25,7 @@ public class TopThreeFragment extends Fragment {
     private TextInputEditText nameTI;
     private Button submitBtn;
     private MySP mySP;
+    private MapFragment mapFragment;
 
     @Nullable
     @Override
@@ -45,7 +46,7 @@ public class TopThreeFragment extends Fragment {
                 view.findViewById(R.id.second_place),
                 view.findViewById(R.id.third_place)
         };
-        topThreeTV = new TextView[] {
+        topThreeTV = new TextView[]{
                 view.findViewById(R.id.first_TV),
                 view.findViewById(R.id.second_TV),
                 view.findViewById(R.id.third_TV)

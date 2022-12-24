@@ -1,8 +1,11 @@
 package com.example.hw1;
 
+import android.location.Location;
+
 public class Record {
     private int score;
     private String name;
+    private Location location;
 
     public Record(int score, String name) {
         this.score = score;
@@ -23,5 +26,13 @@ public class Record {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

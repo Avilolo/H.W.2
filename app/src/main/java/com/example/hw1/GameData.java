@@ -140,8 +140,13 @@ public class GameData {
         Bundle score = new Bundle();
         score.putInt("score", meterCounter);
         leaderboard.setArguments(score);
-        fragTransaction.replace(R.id.map_frame, map).commit();
-        fragTransaction.replace(R.id.leaderboard_frame, leaderboard).commit();
+        fragTransaction.replace(R.id.map_frame, map);
+        fragTransaction.addToBackStack(null);
+        fragTransaction.commit();
+        FragmentTransaction fragTransaction2 = fragmentManager.beginTransaction();
+        fragTransaction2.replace(R.id.leaderboard_frame, leaderboard);
+        fragTransaction2.addToBackStack(null);
+        fragTransaction2.commit();
     }
 }
 
