@@ -19,7 +19,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.textfield.TextInputEditText;
 
 
-public class TopThreeFragment extends Fragment {
+public class TopThreeFragment extends Fragment implements View.OnClickListener{
     private ExtendedFloatingActionButton[] topName;
     private TextView[] topThreeTV;
     private Record[] records;
@@ -37,6 +37,18 @@ public class TopThreeFragment extends Fragment {
         submitBtn.setOnClickListener(view2 -> {
             submitBtn.setEnabled(false);    //cancel button after saving data
             submitRecord(score.getInt("score"));
+        });
+        topName[0].setOnClickListener(view3 ->
+        {
+
+        });
+        topName[1].setOnClickListener(view3 ->
+        {
+
+        });
+        topName[2].setOnClickListener(view3 ->
+        {
+
         });
         return view;
     }
@@ -64,6 +76,21 @@ public class TopThreeFragment extends Fragment {
         for (int i = 0; i < records.length; i++) {
             records[i] = new Record(Integer.valueOf(topThreeTV[i].getText().toString()),
                     topName[i].getText().toString());
+        }
+        //TODO set for test delete after
+        {
+            Location loc1 = new Location("a");
+            loc1.setLatitude(32.07305292200886);
+            loc1.setLongitude(34.81572865754036);
+            Location loc2 = new Location("b");
+            loc1.setLatitude(32.08018539444466);
+            loc1.setLongitude(34.90582291178376);
+            Location loc3 = new Location("c");
+            loc1.setLatitude(32.12334080559518);
+            loc1.setLongitude(34.80645009997441);
+            records[0].setLocation(new Location(loc1));
+            records[1].setLocation(loc2);
+            records[2].setLocation(loc3);
         }
         mySP.init(getContext());
         mySP = mySP.getInstance();
@@ -142,4 +169,10 @@ public class TopThreeFragment extends Fragment {
             records = new Gson().fromJson(recordsAsJson, Record[].class);
     }
 
+    @Override
+    public void onClick(View view) {
+        for (ExtendedFloatingActionButton btn : topName) {
+            btn.setOnClickListener(this);
+        }
+    }
 }

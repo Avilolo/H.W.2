@@ -1,40 +1,37 @@
 package com.example.hw1;
 
 
+import static android.content.Context.LOCATION_SERVICE;
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import java.util.List;
 
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements LocationListener {
 
     private GoogleMap mMap;
     private OnMapReadyCallback callback;
-    private FusedLocationProviderClient fusedLocationClient;
-    private Location currentLocation;
-    private LocationListener listener;
-    private final static int REQUEST_CODE = 100;
+    private Location location;
+    private LocationManager locationManager;
+    private final static int REQUEST_CODE = 101;
 
 
     @Override
@@ -43,54 +40,82 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.my_map);
+        location = new Location("location");
 
-
+        TopThreeFragment.
         callback = new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-                zoomOnLocation(requestCurrentLocation());
+                getLocation();
+                zoomOnLocation(location);
             }
         };
 
-
         supportMapFragment.getMapAsync(callback);
-
         return view;
     }
 
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-    }
-
-    public Location requestCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
+    private void getPermission() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_CODE);
-            return null;
+            ActivityCompat.requestPermissions((Activity) getContext(),
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
         }
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            currentLocation = location;
-                        }
-                    }
-                });
-
-        return currentLocation;
     }
 
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+        getPermission();
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L,
+                1F, this);
+        if (locationManager != null) {
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+    }
+
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull List<Location> locations) {
+//        LocationListener.super.onLocationChanged(locations);
+    }
+
+    @Override
+    public void onFlushComplete(int requestCode) {
+//        LocationListener.super.onFlushComplete(requestCode);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+//        LocationListener.super.onStatusChanged(provider, status, extras);
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+//        LocationListener.super.onProviderEnabled(provider);
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+//        LocationListener.super.onProviderDisabled(provider);
+    }
     private void zoomOnLocation(Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
         mMap.addMarker(new MarkerOptions().position(latLng));
     }
+
 }
+
+
+
+

@@ -10,6 +10,7 @@ public class Record {
     public Record(int score, String name) {
         this.score = score;
         this.name = name;
+        location = null;
     }
 
     public int getScore() {
