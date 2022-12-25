@@ -4,6 +4,7 @@ package com.example.hw1;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,10 +17,13 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 
@@ -29,6 +33,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private OnMapReadyCallback callback;
     private FusedLocationProviderClient fusedLocationClient;
     private Location currentLocation;
+    private LocationListener listener;
+    private final static int REQUEST_CODE = 100;
 
 
     @Override
@@ -38,11 +44,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.my_map);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
         callback = new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
+                fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+                zoomOnLocation(requestCurrentLocation());
             }
         };
 
@@ -57,11 +65,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
     }
 
-    public void requestCurrentLocation() {
+    public Location requestCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE);
+            return null;
         }
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
@@ -73,6 +83,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         }
                     }
                 });
+
+        return currentLocation;
     }
 
+    private void zoomOnLocation(Location currentLocation) {
+        LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        mMap.addMarker(new MarkerOptions().position(latLng));
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.hw1;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import com.google.gson.Gson;
@@ -25,7 +26,7 @@ public class TopThreeFragment extends Fragment {
     private TextInputEditText nameTI;
     private Button submitBtn;
     private MySP mySP;
-    private MapFragment mapFragment;
+
 
     @Nullable
     @Override
@@ -88,31 +89,44 @@ public class TopThreeFragment extends Fragment {
         if (score < records[2].getScore()) {   // if score not high enough
             return;
         }
-        if (score >= records[0].getScore()) {
-            shiftRecordDown(2);
-            records[0].setScore(score);
-            records[0].setName(getName());
-        } else if (score >= records[1].getScore()) {
-            shiftRecordDown(1);
-            records[1].setScore(score);
-            records[1].setName(getName());
-        } else {
-            records[2].setScore(score);
-            records[2].setName(getName());
+        for (int i = 0, j = 2; i < records.length; i++, j--) {
+            if (score >= records[i].getScore()) {
+                shiftRecordDown(j);
+                records[i].setScore(score);
+                records[i].setName(getName());
+//                records[i].setLocation(mapFragment.requestCurrentLocation());
+                break;
+            }
         }
+//        if (score >= records[0].getScore()) {
+//            shiftRecordDown(2);
+//            records[0].setScore(score);
+//            records[0].setName(getName());
+//        } else if (score >= records[1].getScore()) {
+//            shiftRecordDown(1);
+//            records[1].setScore(score);
+//            records[1].setName(getName());
+//        } else {
+//            records[2].setScore(score);
+//            records[2].setName(getName());
+//        }
         updateRecordsUI();
         saveDataToSP();
     }
 
     public void shiftRecordDown(int howMany) {
+        if (howMany == 0)
+            return;
         records[2].setScore(records[1].getScore());
-        topThreeTV[2].setText(topThreeTV[2].getText());
+        topThreeTV[2].setText(topThreeTV[1].getText());
         records[2].setName(topName[1].getText().toString());
         topName[2].setText(records[2].getName());
+//        records[2].setLocation(records[1].getLocation());
         if (howMany == 2) {
             records[1].setScore(records[0].getScore());
-            topThreeTV[2].setText(topThreeTV[0].getText());
             records[1].setName(topName[0].getText().toString());
+//            records[1].setLocation(records[0].getLocation());
+            topThreeTV[1].setText(topThreeTV[0].getText());
             topName[1].setText(records[1].getName());
         }
     }
@@ -127,4 +141,5 @@ public class TopThreeFragment extends Fragment {
         if (!recordsAsJson.equals(""))
             records = new Gson().fromJson(recordsAsJson, Record[].class);
     }
+
 }
