@@ -1,16 +1,15 @@
-package com.example.hw1;
-
-import android.location.Location;
+package com.example.hw1.Classes;
+import com.google.android.gms.maps.model.LatLng;
 
 public class Record {
     private int score;
     private String name;
-    private Location location;
+    private LatLng latLng;
 
     public Record(int score, String name) {
         this.score = score;
         this.name = name;
-        location = null;
+        latLng = null;
     }
 
     public int getScore() {
@@ -29,11 +28,11 @@ public class Record {
         this.name = name;
     }
 
-    public Location getLocation() {
-        return location;
+    public LatLng getLatLng() {
+        return latLng;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
     }
 }

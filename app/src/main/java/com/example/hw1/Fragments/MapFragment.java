@@ -1,4 +1,4 @@
-package com.example.hw1;
+package com.example.hw1.Fragments;
 
 
 import static android.content.Context.LOCATION_SERVICE;
@@ -16,12 +16,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.example.hw1.Classes.MessageEvent;
+import com.example.hw1.Classes.MySP;
+import com.example.hw1.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 
@@ -30,8 +38,11 @@ public class MapFragment extends Fragment implements LocationListener {
     private GoogleMap mMap;
     private OnMapReadyCallback callback;
     private Location location;
+    private FragmentManager fragmentManager;
     private LocationManager locationManager;
+    private MySP mySP;
     private final static int REQUEST_CODE = 101;
+
 
 
     @Override
@@ -42,13 +53,14 @@ public class MapFragment extends Fragment implements LocationListener {
                 getChildFragmentManager().findFragmentById(R.id.my_map);
         location = new Location("location");
 
-        TopThreeFragment.
+        mySP.init(getContext());
+        mySP = mySP.getInstance();
         callback = new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                getLocation();
-                zoomOnLocation(location);
+                requestLocation();
+                saveDataToSP();
             }
         };
 
@@ -67,11 +79,12 @@ public class MapFragment extends Fragment implements LocationListener {
     }
 
     @SuppressLint("MissingPermission")
-    private void getLocation() {
-        locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+    public void requestLocation() {
+        locationManager = (LocationManager) getActivity().getApplicationContext().getSystemService(LOCATION_SERVICE);
         getPermission();
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L,
-                1F, this);
+
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L,
+                0F, this);
         if (locationManager != null) {
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
@@ -107,14 +120,42 @@ public class MapFragment extends Fragment implements LocationListener {
     public void onProviderDisabled(@NonNull String provider) {
 //        LocationListener.super.onProviderDisabled(provider);
     }
-    private void zoomOnLocation(Location currentLocation) {
-        LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+    private void zoomOnLocation(LatLng latLng) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
         mMap.addMarker(new MarkerOptions().position(latLng));
     }
 
+
+    @Subscribe
+    public void handleEvent(MessageEvent messageEvent) {
+        zoomOnLocation(messageEvent.latLng);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+    private void saveDataToSP() {
+        if (location == null)
+            return;
+        String latToJson = new Gson().toJson(location.getLatitude());
+        String lonToJson = new Gson().toJson(location.getLongitude());
+        mySP.putString("lat", latToJson);
+        mySP.putString("lon", lonToJson);
+    }
+
 }
+
+
 
 
 

@@ -1,4 +1,4 @@
-package com.example.hw1;
+package com.example.hw1.Classes;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,6 +12,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
+
+import com.example.hw1.Activities.GameActivity;
+import com.example.hw1.Fragments.MapFragment;
+import com.example.hw1.Fragments.TopThreeFragment;
+import com.example.hw1.R;
 import com.google.android.material.imageview.ShapeableImageView;
 import java.util.Random;
 
@@ -27,7 +32,6 @@ public class GameData {
     private int meterCounter;
     private int life;
     private FragmentManager fragmentManager;
-    private TopThreeFragment leaderboard;
 
 
     public GameData(int life, Vibrator vibrator, FragmentManager fragmentManager) {
@@ -61,7 +65,7 @@ public class GameData {
 
     private void moveCroc(ShapeableImageView crocs[][], ShapeableImageView frogs[],
                           ShapeableImageView hearts[], Context con, TextView meter) {
-       checkCollision(crocs, frogs, hearts, con, meter);
+       checkCollision(crocs, frogs, hearts, con);
 
         for (int i = 0; i < crocs.length; i++) {
             for (int j = crocs[0].length - 1; j > 0; j--) {
@@ -88,7 +92,7 @@ public class GameData {
     }
 
     private void checkCollision(ShapeableImageView crocs[][], ShapeableImageView frogs[],
-                                   ShapeableImageView hearts[], Context con, TextView meter) {
+                                   ShapeableImageView hearts[], Context con) {
         MediaPlayer mp = MediaPlayer.create(con, R.raw.wilhelm_scream);
         if ((crocs[GameActivity.getFrogPos()][4].getVisibility() == View.VISIBLE) &&
                 (crocs[GameActivity.getFrogPos()][4].getVisibility() == frogs[GameActivity.getFrogPos()].getVisibility())) {
@@ -96,7 +100,7 @@ public class GameData {
                 vibrator.vibrate(500);
                 vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 life--;
-                if (life == 2) {    //TODO CHANGE BACK TO 0
+                if (life == 0) {
                     handle.removeCallbacks(run);    //stops game from running
                     inflateFragments(con);
                 }

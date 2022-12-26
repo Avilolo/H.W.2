@@ -1,13 +1,13 @@
-package com.example.hw1;
+package com.example.hw1.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.hw1.Activities.GameActivity;
+import com.example.hw1.R;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-
-import java.nio.file.Files;
 
 public class HomeScreenActivity extends AppCompatActivity {
     private boolean gameType;   // false = arrows || true == sensors

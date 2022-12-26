@@ -1,4 +1,4 @@
-package com.example.hw1;
+package com.example.hw1.Classes;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,9 +18,7 @@ public class MySP {
             instance = new MySP(con);
     }
 
-    public void putInt(String key, int value) {
-        sp.edit().putInt(key, value).apply();
-    }
+    public void putInt(String key, int value) { sp.edit().putInt(key, value).apply(); }
 
     public static MySP getInstance() {
         return instance;

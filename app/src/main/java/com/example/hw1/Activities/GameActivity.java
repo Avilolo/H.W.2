@@ -1,24 +1,20 @@
-package com.example.hw1;
+package com.example.hw1.Activities;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.hw1.Classes.GameData;
+import com.example.hw1.R;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -178,6 +174,7 @@ public class GameActivity extends AppCompatActivity {
             sensorManager.unregisterListener(sensorEL);
         }
     }
+
 }
 
 
